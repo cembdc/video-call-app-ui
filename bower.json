@@ -1,0 +1,11 @@
+{
+    "name": "video-call-app-ui",
+    "homepage": "https://github.com/CemBdc/video-call-app-ui",
+    "authors": ["cem-bideci"],
+    "description": "React Material-UI Kit based on Material Design for viedo call web application.",
+    "main": "dist/index.js",
+    "keywords": ["material", "design", "material-ui", "google", "twitter"],
+    "license": "Creative TIM License",
+    "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
+    "private": true
+}
