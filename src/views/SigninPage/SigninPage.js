@@ -5,6 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
+import People from '@material-ui/icons/People';
 // core components
 import Header from 'components/Header/Header.js';
 import HeaderLinks from 'components/Header/HeaderLinks.js';
@@ -23,11 +24,10 @@ import styles from 'assets/jss/material-kit-react/views/loginPage.js';
 import image from 'assets/img/bg7.jpg';
 
 import { withTranslation } from 'react-i18next';
-import { withSnackbar } from 'notistack';
 
 const useStyles = makeStyles(styles);
 
-const LoginPage = props => {
+const SigninPage = props => {
     const [cardAnimaton, setCardAnimation] = React.useState('cardHidden');
     setTimeout(function() {
         setCardAnimation('');
@@ -61,7 +61,7 @@ const LoginPage = props => {
                                         color="primary"
                                         className={classes.cardHeader}
                                     >
-                                        <h4>{rest.t('Login')}</h4>
+                                        <h4>{rest.t('Signin')}</h4>
                                         <div className={classes.socialLine}>
                                             <Button
                                                 justIcon
@@ -108,9 +108,31 @@ const LoginPage = props => {
                                             </Button>
                                         </div>
                                     </CardHeader>
+                                    <p className={classes.divider}>
+                                        Or Be Classical
+                                    </p>
                                     <CardBody>
                                         <CustomInput
-                                            labelText="Email..."
+                                            labelText={rest.t('Username')}
+                                            id="first"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                type: 'text',
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <People
+                                                            className={
+                                                                classes.inputIconsColor
+                                                            }
+                                                        />
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <CustomInput
+                                            labelText={rest.t('Email')}
                                             id="email"
                                             formControlProps={{
                                                 fullWidth: true
@@ -129,7 +151,7 @@ const LoginPage = props => {
                                             }}
                                         />
                                         <CustomInput
-                                            labelText="Password"
+                                            labelText={rest.t('Password')}
                                             id="pass"
                                             formControlProps={{
                                                 fullWidth: true
@@ -150,33 +172,25 @@ const LoginPage = props => {
                                                 autoComplete: 'off'
                                             }}
                                         />
-                                        <Button
+                                        {/* <Button
                                             simple
                                             fullWidth
                                             color="primary"
-                                            size="sm"
+                                            size="md"
                                             onClick={() =>
-                                                rest.history.push(
-                                                    '/signin-page'
-                                                )
+                                                rest.history.push('/login-page')
                                             }
                                         >
-                                            {rest.t('IsMember')}
-                                        </Button>
+                                            {rest.t('Login')}
+                                        </Button> */}
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
                                         <Button
                                             color="primary"
                                             size="lg"
                                             fullWidth
-                                            onClick={() =>
-                                                rest.enqueueSnackbar(
-                                                    'Successfully fetched the data.',
-                                                    { variant: 'success' }
-                                                )
-                                            }
                                         >
-                                            {rest.t('Login')}
+                                            {rest.t('Signin')}
                                         </Button>
                                     </CardFooter>
                                 </form>
@@ -190,4 +204,4 @@ const LoginPage = props => {
     );
 };
 
-export default withTranslation()(withSnackbar(LoginPage));
+export default withTranslation('translations')(SigninPage);

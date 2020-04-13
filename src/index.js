@@ -1,27 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createBrowserHistory } from 'history';
-import { Router, Route, Switch } from 'react-router-dom';
+import App from './App';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
+import { SnackbarProvider } from 'notistack';
 
-import 'assets/scss/material-kit-react.scss?v=1.8.0';
+import Button from './components/CustomButtons/Button.js';
 
-// pages for this product
-// import Components from 'views/Components/Components.js';
-import LandingPage from 'views/LandingPage/LandingPage.js';
-import ProfilePage from 'views/ProfilePage/ProfilePage.js';
-import LoginPage from 'views/LoginPage/LoginPage.js';
-
-var hist = createBrowserHistory();
+const notistackRef = React.createRef();
+const onClickDismiss = key => () => {
+    notistackRef.current.closeSnackbar(key);
+};
 
 ReactDOM.render(
-    <Router history={hist}>
-        <Switch>
-            <Route path="/landing-page" component={LandingPage} />
-            <Route path="/profile-page" component={ProfilePage} />
-            <Route path="/login-page" component={LoginPage} />
-            {/* <Route path="/" component={Components} /> */}
-            <Route path="/" component={LoginPage} />
-        </Switch>
-    </Router>,
+    <I18nextProvider i18n={i18n}>
+        <SnackbarProvider
+            maxSnack={3}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center'
+            }}
+            autoHideDuration={3000}
+            ref={notistackRef}
+            action={key => (
+                <Button simple onClick={onClickDismiss(key)}>
+                    X
+                </Button>
+            )}
+        >
+            <App />
+        </SnackbarProvider>
+    </I18nextProvider>,
     document.getElementById('root')
 );
