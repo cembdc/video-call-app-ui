@@ -27,6 +27,24 @@ import { withSnackbar } from 'notistack';
 
 const useStyles = makeStyles(styles);
 
+const getUsers = async props => {
+    // props.enqueueSnackbar(process.env.REACT_APP_API_URL, {
+    //     variant: 'info'
+    // });
+
+    try {
+        let req = await fetch(`${process.env.REACT_APP_API_URL}user/`);
+        let result = await req.json();
+        props.enqueueSnackbar(result.data[0].userName, {
+            variant: 'success'
+        });
+    } catch (error) {
+        props.enqueueSnackbar('Hata: ' + error, {
+            variant: 'error'
+        });
+    }
+};
+
 const LoginPage = props => {
     const [cardAnimaton, setCardAnimation] = React.useState('cardHidden');
     setTimeout(function() {
@@ -169,12 +187,13 @@ const LoginPage = props => {
                                             color="primary"
                                             size="lg"
                                             fullWidth
-                                            onClick={() =>
-                                                rest.enqueueSnackbar(
-                                                    'Successfully fetched the data.',
-                                                    { variant: 'success' }
-                                                )
-                                            }
+                                            // onClick={() =>
+                                            //     rest.enqueueSnackbar(
+                                            //         'Successfully fetched the data.',
+                                            //         { variant: 'success' }
+                                            //     )
+                                            // }
+                                            onClick={() => getUsers(rest)}
                                         >
                                             {rest.t('Login')}
                                         </Button>
